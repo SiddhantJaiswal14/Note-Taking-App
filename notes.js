@@ -23,7 +23,7 @@ var addingNote = (title, body) => {
     fs.writeFileSync("./notes.txt", JSON.stringify(notes)); // update the notes.txt
     logNotes(note);
   } else {
-    console.log("Sorry!! Note already Present");
+    console.log("Title already taken!");
   }
 };
 
@@ -31,7 +31,11 @@ var removingNote = (title) => {
   var notes = fetchNotes();
 
   var filteredNotes = notes.filter((note) => note.title !== title);
-  fs.writeFileSync("./notes.txt", JSON.stringify(filteredNotes));
+  if (notes.length !== filteredNotes.length) {
+    fs.writeFileSync("./notes.txt", JSON.stringify(filteredNotes));
+  } else {
+    console.log("Note not found!");
+  }
 };
 
 var readingNote = (title) => {
